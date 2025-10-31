@@ -1,7 +1,7 @@
 ---
 - name: Create test file on both hosts
   hosts: ansible-test
-  #become: true
+  become: true
   tasks:
     - name: Create /tmp/hello_from_awx.txt
       copy:
