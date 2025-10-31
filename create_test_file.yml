@@ -1,11 +1,10 @@
 ---
-- name: Create test file on both hosts
+- name: Create test file on both hosts (no sudo)
   hosts: ansible-test
-  become: true
+  gather_facts: false
   tasks:
-    - name: Create /tmp/hello_from_awx.txt
+    - name: Create hello_from_awx.txt in user home
       copy:
-        content: "Hello from AWX! Host: {{ inventory_hostname }}\n"
-        dest: /tmp/hello_from_awx.txt
-        owner: "{{ ansible_user }}"
+        content: "Hello from AWX! Host: {{ inventory_hostname }} at {{ ansible_date_time.iso8601 }}\n"
+        dest: "{{ ansible_env.HOME }}/hello_from_awx.txt"
         mode: '0644'
